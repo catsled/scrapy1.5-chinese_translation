@@ -37,4 +37,4 @@
 > 2. 为了加快翻译速度，提高翻译质量，期待各位志愿者的加入(E-mail: bigmaidong6@163.com)
 
 > 3. 成员名单(联系方式)
->> xxxx(xxxxx) sssss(ssssss)
+>> catsled(bigmaidong6@163.com) Gonnchin(Gonnchin@163.com) HardyYao(hardyyao1995@qq.com) ch8936(ch8936@126.com) 小龙321(237325670@qq.com) 
