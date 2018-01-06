@@ -12,7 +12,7 @@
 
 ### 注意事项
 
-* 翻译前请参考规范的markdown格式(scrapy官方文档格式规范)，可参考templates下的temp_md文件
+* 翻译前请参考规范的markdown格式(scrapy官方文档格式规范)，可参考templates下的temp_example.md文件
 
 * 为了避免重复翻译，请在翻译前发起一个新的issues，以要翻译的标题名称作为issues的标题，同时注明翻译的开始日期以及大概的结束日期
 
