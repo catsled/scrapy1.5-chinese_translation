@@ -11,7 +11,7 @@ Welcome to my_project's documentation!
    :caption: Contents:
 
 
-Basic Test
+First step
 ==========
 
 .. toctree::
