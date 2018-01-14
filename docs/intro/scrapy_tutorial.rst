@@ -4,7 +4,7 @@
 Scrapy 教程
 ===========
 
-在本节教程中，我们认为你已经成功的安装了scarpy. 如果你还没有安装scrapy,请查看安装教程 baidu_.
+在本节教程中，我们认为你已经成功的安装了scrapy. 如果你还没有安装scrapy,请查看安装教程 baidu_.
 
 .. _baidu: http://www.baidu.com
 
