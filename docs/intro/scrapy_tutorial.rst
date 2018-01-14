@@ -4,11 +4,11 @@
 Scrapy 教程
 ===========
 
-在本节教程中，我们认为你已经成功的安装了scrapy. 如果你还没有安装scrapy,请查看安装教程 baidu_.
+在本节教程中，我们认为你已经成功的安装了scrapy. 如果你还没有安装scrapy,请查看安装教程 baidu_。
 
 .. _baidu: http://www.baidu.com
 
-接下来，我们将要爬取 quotes.toscrape.com，该网站列出了一些名人名言.
+接下来，我们将要爬取 quotes.toscrape.com，该网站列出了一些名人名言。
 
 跟着教程熟悉接下来的任务:
 
@@ -18,11 +18,11 @@ Scrapy 教程
 4. 使用follow links将爬虫改为可递归的
 5. 使用spider参数
 
-Scrapy完全使用python编写.如果你并不熟悉python编程语言，没关系，除了Scrapy之外你可以从很多地方了解到这门语言.
+Scrapy完全使用python编写.如果你并不熟悉python编程语言，没关系，除了Scrapy之外你可以从很多地方了解到这门语言。
 
-如果你有其他语言的编程经验，并且想要快速学习python，我们推荐你阅读一下Dive Into Python 3. 当然，我们也推荐Python Turorial.
+如果你有其他语言的编程经验，并且想要快速学习python，我们推荐你阅读一下Dive Into Python 3. 当然，我们也推荐Python Turorial。
 
-如果你没有编程经验，并且想要以python开始你的编程生涯，这本Learn Python The Hard Way对你来说应该用处很大.这里列出了一些对你或许有用的Python学习资源.
+如果你没有编程经验，并且想要以python开始你的编程生涯，这本Learn Python The Hard Way对你来说应该用处很大.这里列出了一些对你或许有用的Python学习资源。
 
 
 创建一个项目
@@ -56,7 +56,7 @@ Scrapy完全使用python编写.如果你并不熟悉python编程语言，没关�
 ====================
 
 接下来，我们会定义一个Spider类，`Scrapy` 将会使用这个类去爬取网站上的信息.这个类必须继承自 ``scrapy.Spider`` 同时，
-你还需要定义一些其他的方法，比如说，创建初始化的请求，你也可以选择如何去跟进这个网页的其他链接，以及如何从已下载的网页中解析提取相应的数据.
+你还需要定义一些其他的方法，比如说，创建初始化的请求，你也可以选择如何去跟进这个网页的其他链接，以及如何从已下载的网页中解析提取相应的数据。
 
 这是我们的第一个Spider代码.将这些代码保存至 ``tutorial/spiders`` 下的 ``quotes_spider.py`` 文件中::
 
@@ -226,7 +226,7 @@ Scrapy 追踪链接的机制：当你在一个回调方法中发起一个 Reques
 
 .. `parse_author`回调定义了一个很有用的函数，它可以从一个 CSS 查询中提取或清理数据，并且生成一个带有作者信息的 Python 字典。
 
-更有趣的是，我们可以看到：即使同样的作者有很多名言，我们却不需要考虑同一个作者的页面被多次抓取。Scrapy 默认匹配已经抓取过的 URL 来过滤重复的请求，这也避免了因为程序错误而多次请求服务器的问题。你可以设置 **`DUPEFILTER_CLASS`** 的值决定是否过滤。
+更有趣的是，我们可以看到：即使同样的作者有很多名言，我们却不需要考虑同一个作者的页面被多次抓取。Scrapy 默认匹配已经抓取过的 URL 来过滤重复的请求，这也避免了因为程序错误而多次请求服务器的问题。你可以设置 `DUPEFILTER_CLASS` 的值决定是否过滤。
 
 
 希望你已经理解了 Scrapy 跟踪链接和回调函数的机制。
@@ -246,7 +246,7 @@ Scrapy 追踪链接的机制：当你在一个回调方法中发起一个 Reques
 
     scrapy crawl quotes -o quotes-humor.json -a tag=humor
 
-这些参数会被传递到当前爬虫的 Spider类中的`__init__`方法中, 同时这些参数会默认的成为该爬虫的属性.
+这些参数会被传递到当前爬虫的 Spider类中的`__init__`方法中, 同时这些参数会默认的成为该爬虫的属性。
 
 在本例中, 你可以通过`self.tag` 来使用通过tag参数提供的值.同时利用这个特性来构建你的URL,让爬虫去爬取你想要的数据.:: 
 
@@ -273,7 +273,7 @@ Scrapy 追踪链接的机制：当你在一个回调方法中发起一个 Reques
         if next_page is not None:
             yield response.follow(next_page, self.parse)
 
-如果你将tag=humor这个参数传递给了这个爬虫, 那么该爬虫只会获取与humor这个标签相关的url， 比如说: `http://quotes.toscrape.com/tag/humor`.
+如果你将tag=humor这个参数传递给了这个爬虫, 那么该爬虫只会获取与humor这个标签相关的url， 比如说: `http://quotes.toscrape.com/tag/humor`。
 
 获取更多关于爬虫参数的信息 link_
 
@@ -284,9 +284,9 @@ Scrapy 追踪链接的机制：当你在一个回调方法中发起一个 Reques
 ==========
 
 对于Scrapy来说,这只是一个很基础的教程, 有很多其他的特性在本节并没有提到.你可以在 `Scrapy at a glance`_ 这一章节查看[What else?]()
-来获取更多有关Scrapy的重要信息.
+来获取更多有关Scrapy的重要信息。
 
-你可以通过 `Basic concepts`_ 这一章节继续学习更多有关于命令行工具, spiders, 选择器(用来提取数据),和对提取的数据进行规范化等一系列在本章没有涉及到的内容.如果你更迫不及待的想去试一下案例项目, 请查看 Examples_.
+你可以通过 `Basic concepts`_ 这一章节继续学习更多有关于命令行工具, spiders, 选择器(用来提取数据),和对提取的数据进行规范化等一系列在本章没有涉及到的内容.如果你更迫不及待的想去试一下案例项目, 请查看 Examples_。
 
 .. _`Basic concepts`: http://www.baidu.com
 .. _`Scrapy at a glance`: http://www.baidu.com
