@@ -22,12 +22,16 @@ Basic Test
    
    docs/intro/scrapy_tutorial
    docs/intro/scrapy_install
+   docs/intro/examples
 
 :doc: `docs/intro/scrapy_tutorial`
      Scrapy Tutorial.
 
 :doc: `docs/intro/scrapy_install`
      Scrapy Install
+
+:doc: `docs/intro/examples`
+
 
 Indices and tables
 ==================
