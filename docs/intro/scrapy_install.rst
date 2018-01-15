@@ -1,4 +1,4 @@
-.. docs-intro-scrapy-install
+.. docs-intro-scrapy-install:
 
 =========
 安装指南
