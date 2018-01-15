@@ -1,4 +1,4 @@
-.. docs-intro-examples
+.. docs-intro-examples:
 
 ==================
 Examples
