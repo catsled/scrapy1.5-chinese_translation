@@ -4,9 +4,7 @@
 Scrapy 教程
 ===========
 
-在本节教程中，我们认为你已经成功的安装了scrapy. 如果你还没有安装scrapy,请查看安装教程 baidu_。
-
-.. _baidu: http://www.baidu.com
+在本节教程中，我们认为你已经成功的安装了scrapy. 如果你还没有安装scrapy,请查看安装教程 :ref:`docs-intro-scrapy-install` 。
 
 接下来，我们将要爬取 quotes.toscrape.com，该网站列出了一些名人名言。
 
