@@ -1,4 +1,4 @@
-.. docs-intro-scrapy-install:
+.. _docs-intro-scrapy-install:
 
 =========
 安装指南
@@ -20,7 +20,7 @@ Scrapy运行在Cpython解释器（默认python实现)和PyPy解释器(从PyPy5.9
     > pip install Scrapy
 
 
-注意，对于某些Scrapy依赖项的编译问题的解决方法，有时候可能需要根据你的操作系统来决定，因此请务必查看 平台特定的安装说明 install guide_ 。
+注意，对于某些Scrapy依赖项的编译问题的解决方法，有时候可能需要根据你的操作系统来决定，因此请务必查看 平台特定的安装说明 `install guide`_ 。
 
 我们强烈建议你将Scrapy安装在专用的虚拟环境 virtualenv_link_ 中，以免与你的系统包发生冲突。
 
@@ -30,7 +30,7 @@ Scrapy运行在Cpython解释器（默认python实现)和PyPy解释器(从PyPy5.9
 .. _Miniconda: https://conda.io/docs/user-guide/install/index.html
 .. _virtualenv_link: https://docs.scrapy.org/en/latest/intro/install.html#intro-using-virtualenv
 .. _conda-forge: https://conda-forge.org/
-.. _install guide: https://docs.scrapy.org/en/latest/intro/install.html#intro-install-platform-notes
+.. _`install guide`: https://docs.scrapy.org/en/latest/intro/install.html#intro-install-platform-notes
 
 一些更有益于学习scrapy的知识
 ----------------------------

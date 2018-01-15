@@ -1,4 +1,4 @@
-.. docs-intro-scrapy-tutorial:
+.. _docs-intro-scrapy-tutorial:
 
 ===========
 Scrapy 教程
@@ -183,9 +183,8 @@ Scrapy 追踪链接的机制：当你在一个回调方法中发起一个 Reques
 	for a in response.css('li.next a'):
     		yield response.follow(a, callback=self.parse)
 
->!注意
->`response.follow(response.css('li.next a'))` 是错误的，因为`response.css`返回一个类似列表的对象，这个对象包括这个选择器的所有结果，它并不是一个单选择器。使用上面例子中的`for`循环或者`response.follow(response.css('li.next a')[0])`是不错的选择。
->
+.. note::
+    `response.follow(response.css('li.next a'))` 是错误的，因为`response.css`返回一个类似列表的对象，这个对象包括这个选择器的所有结果，它并不是一个单选择器。使用上面例子中的`for`循环或者`response.follow(response.css('li.next a')[0])`是不错的选择。
 
 
 更多的例子和模式
@@ -236,6 +235,7 @@ Scrapy 追踪链接的机制：当你在一个回调方法中发起一个 Reques
 当然，可能经常需要用多个页面的数据来构建一个抓取条目，这时就可以[设法给回调函数传递参数] pass_params_ 。
  
 .. _pass_params: https://doc.scrapy.org/en/latest/topics/request-response.html#topics-request-response-ref-request-callback-arguments
+
 
 使用Spider的参数
 =================
