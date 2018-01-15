@@ -122,21 +122,21 @@ Scrapy完全使用python编写.如果你并不熟悉python编程语言，没关�
 
 	import scrapy
 	class QuotesSpider(scrapy.Spider):
-    name = "quotes"
-    start_urls = [
-        'http://quotes.toscrape.com/page/1/',
-    ]
-    def parse(self, response):
-        for quote in response.css('div.quote'):
-            yield {
-                'text': quote.css('span.text::text').extract_first(),
-                'author': quote.css('small.author::text').extract_first(),
-                'tags': quote.css('div.tags a.tag::text').extract(),
-            }
-        next_page = response.css('li.next a::attr(href)').extract_first()
-        if next_page is not None:
-            next_page = response.urljoin(next_page)
-            yield scrapy.Request(next_page, callback=self.parse)
+    		name = "quotes"
+    		start_urls = [
+        	'http://quotes.toscrape.com/page/1/',
+    		]
+    		def parse(self, response):
+        		for quote in response.css('div.quote'):
+            			yield {
+					'text': quote.css('span.text::text').extract_first(),
+					'author': quote.css('small.author::text').extract_first(),
+					'tags': quote.css('div.tags a.tag::text').extract(),
+				    }
+			next_page = response.css('li.next a::attr(href)').extract_first()
+			if next_page is not None:
+			    next_page = response.urljoin(next_page)
+			    yield scrapy.Request(next_page, callback=self.parse)
 
 
 提取数据后，`parse()` 方法会通过链接请求下一个页面，它会使用 `urljoin()` 方法生成一个绝对路径（抓取的链接是相对路径的）并且请求下一页，这个方法注册自己为回调函数完成下一页的数据提取，从而实现爬取所有的页面。
@@ -176,12 +176,12 @@ Scrapy 追踪链接的机制：当你在一个回调方法中发起一个 Reques
 和 `scrapy.Request` 不同， `response.follow` 支持相对 URL 路径——不需要调用 `urljoin` .但是 `response.follow`  仅仅返回一个`Request`接口,你仍然要发起这个请求当然，`response.follow` 的第一个参数不一定是字符串也可以是一个选择器,这个选择器应该提供必须的属性: ::
 
 	for href in response.css('li.next a::attr(href)'):
-    	yield response.follow(href, callback=self.parse)
+    		yield response.follow(href, callback=self.parse)
 
 对于一个 `<a>` 元素： `response.follow` 会自动使用它的 `href` 属性。所以，代码可以更短: ::
 
 	for a in response.css('li.next a'):
-    	yield response.follow(a, callback=self.parse)
+    		yield response.follow(a, callback=self.parse)
 
 >!注意
 >`response.follow(response.css('li.next a'))` 是错误的，因为`response.css`返回一个类似列表的对象，这个对象包括这个选择器的所有结果，它并不是一个单选择器。使用上面例子中的`for`循环或者`response.follow(response.css('li.next a')[0])`是不错的选择。
