@@ -26,6 +26,19 @@ First step
 
 :doc: `docs/intro/examples`
      Scrapy Examples
+     
+     
+BASIC CONCEPT
+==============
+
+.. toctree::
+   :caption: Basic Concept
+   :hidden:
+   
+   docs/topics/spiders.rst
+
+:doc: `docs/topics/spiders
+     Spiders
 
 Indices and tables
 ==================
