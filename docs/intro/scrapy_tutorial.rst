@@ -1,14 +1,12 @@
-.. docs-intro-scrapy-tutorial:
+.. _docs-intro-scrapy-tutorial:
 
 ===========
 Scrapy 教程
 ===========
 
-在本节教程中，我们认为你已经成功的安装了scarpy. 如果你还没有安装scrapy,请查看安装教程 baidu_.
+在本节教程中，我们认为你已经成功的安装了scrapy. 如果你还没有安装scrapy,请查看安装教程 :ref:`docs-intro-scrapy-install` 。
 
-.. _baidu: http://www.baidu.com
-
-接下来，我们将要爬取 quotes.toscrape.com，该网站列出了一些名人名言.
+接下来，我们将要爬取 quotes.toscrape.com，该网站列出了一些名人名言。
 
 跟着教程熟悉接下来的任务:
 
@@ -18,11 +16,11 @@ Scrapy 教程
 4. 使用follow links将爬虫改为可递归的
 5. 使用spider参数
 
-Scrapy完全使用python编写.如果你并不熟悉python编程语言，没关系，除了Scrapy之外你可以从很多地方了解到这门语言.
+Scrapy完全使用python编写.如果你并不熟悉python编程语言，没关系，除了Scrapy之外你可以从很多地方了解到这门语言。
 
-如果你有其他语言的编程经验，并且想要快速学习python，我们推荐你阅读一下Dive Into Python 3. 当然，我们也推荐Python Turorial.
+如果你有其他语言的编程经验，并且想要快速学习python，我们推荐你阅读一下Dive Into Python 3. 当然，我们也推荐Python Turorial。
 
-如果你没有编程经验，并且想要以python开始你的编程生涯，这本Learn Python The Hard Way对你来说应该用处很大.这里列出了一些对你或许有用的Python学习资源.
+如果你没有编程经验，并且想要以python开始你的编程生涯，这本Learn Python The Hard Way对你来说应该用处很大.这里列出了一些对你或许有用的Python学习资源。
 
 
 创建一个项目
@@ -56,7 +54,7 @@ Scrapy完全使用python编写.如果你并不熟悉python编程语言，没关�
 ====================
 
 接下来，我们会定义一个Spider类，`Scrapy` 将会使用这个类去爬取网站上的信息.这个类必须继承自 ``scrapy.Spider`` 同时，
-你还需要定义一些其他的方法，比如说，创建初始化的请求，你也可以选择如何去跟进这个网页的其他链接，以及如何从已下载的网页中解析提取相应的数据.
+你还需要定义一些其他的方法，比如说，创建初始化的请求，你也可以选择如何去跟进这个网页的其他链接，以及如何从已下载的网页中解析提取相应的数据。
 
 这是我们的第一个Spider代码.将这些代码保存至 ``tutorial/spiders`` 下的 ``quotes_spider.py`` 文件中::
 
@@ -124,21 +122,21 @@ Scrapy完全使用python编写.如果你并不熟悉python编程语言，没关�
 
 	import scrapy
 	class QuotesSpider(scrapy.Spider):
-    name = "quotes"
-    start_urls = [
-        'http://quotes.toscrape.com/page/1/',
-    ]
-    def parse(self, response):
-        for quote in response.css('div.quote'):
-            yield {
-                'text': quote.css('span.text::text').extract_first(),
-                'author': quote.css('small.author::text').extract_first(),
-                'tags': quote.css('div.tags a.tag::text').extract(),
-            }
-        next_page = response.css('li.next a::attr(href)').extract_first()
-        if next_page is not None:
-            next_page = response.urljoin(next_page)
-            yield scrapy.Request(next_page, callback=self.parse)
+    		name = "quotes"
+    		start_urls = [
+        	'http://quotes.toscrape.com/page/1/',
+    		]
+    		def parse(self, response):
+        		for quote in response.css('div.quote'):
+            			yield {
+					'text': quote.css('span.text::text').extract_first(),
+					'author': quote.css('small.author::text').extract_first(),
+					'tags': quote.css('div.tags a.tag::text').extract(),
+				    }
+			next_page = response.css('li.next a::attr(href)').extract_first()
+			if next_page is not None:
+			    next_page = response.urljoin(next_page)
+			    yield scrapy.Request(next_page, callback=self.parse)
 
 
 提取数据后，`parse()` 方法会通过链接请求下一个页面，它会使用 `urljoin()` 方法生成一个绝对路径（抓取的链接是相对路径的）并且请求下一页，这个方法注册自己为回调函数完成下一页的数据提取，从而实现爬取所有的页面。
@@ -178,16 +176,15 @@ Scrapy 追踪链接的机制：当你在一个回调方法中发起一个 Reques
 和 `scrapy.Request` 不同， `response.follow` 支持相对 URL 路径——不需要调用 `urljoin` .但是 `response.follow`  仅仅返回一个`Request`接口,你仍然要发起这个请求当然，`response.follow` 的第一个参数不一定是字符串也可以是一个选择器,这个选择器应该提供必须的属性: ::
 
 	for href in response.css('li.next a::attr(href)'):
-    	yield response.follow(href, callback=self.parse)
+    		yield response.follow(href, callback=self.parse)
 
 对于一个 `<a>` 元素： `response.follow` 会自动使用它的 `href` 属性。所以，代码可以更短: ::
 
 	for a in response.css('li.next a'):
-    	yield response.follow(a, callback=self.parse)
+    		yield response.follow(a, callback=self.parse)
 
->!注意
->`response.follow(response.css('li.next a'))` 是错误的，因为`response.css`返回一个类似列表的对象，这个对象包括这个选择器的所有结果，它并不是一个单选择器。使用上面例子中的`for`循环或者`response.follow(response.css('li.next a')[0])`是不错的选择。
->
+.. note::
+    `response.follow(response.css('li.next a'))` 是错误的，因为`response.css`返回一个类似列表的对象，这个对象包括这个选择器的所有结果，它并不是一个单选择器。使用上面例子中的`for`循环或者`response.follow(response.css('li.next a')[0])`是不错的选择。
 
 
 更多的例子和模式
@@ -226,7 +223,7 @@ Scrapy 追踪链接的机制：当你在一个回调方法中发起一个 Reques
 
 .. `parse_author`回调定义了一个很有用的函数，它可以从一个 CSS 查询中提取或清理数据，并且生成一个带有作者信息的 Python 字典。
 
-更有趣的是，我们可以看到：即使同样的作者有很多名言，我们却不需要考虑同一个作者的页面被多次抓取。Scrapy 默认匹配已经抓取过的 URL 来过滤重复的请求，这也避免了因为程序错误而多次请求服务器的问题。你可以设置 **`DUPEFILTER_CLASS`** 的值决定是否过滤。
+更有趣的是，我们可以看到：即使同样的作者有很多名言，我们却不需要考虑同一个作者的页面被多次抓取。Scrapy 默认匹配已经抓取过的 URL 来过滤重复的请求，这也避免了因为程序错误而多次请求服务器的问题。你可以设置 `DUPEFILTER_CLASS` 的值决定是否过滤。
 
 
 希望你已经理解了 Scrapy 跟踪链接和回调函数的机制。
@@ -239,6 +236,7 @@ Scrapy 追踪链接的机制：当你在一个回调方法中发起一个 Reques
  
 .. _pass_params: https://doc.scrapy.org/en/latest/topics/request-response.html#topics-request-response-ref-request-callback-arguments
 
+
 使用Spider的参数
 =================
 
@@ -246,7 +244,7 @@ Scrapy 追踪链接的机制：当你在一个回调方法中发起一个 Reques
 
     scrapy crawl quotes -o quotes-humor.json -a tag=humor
 
-这些参数会被传递到当前爬虫的 Spider类中的`__init__`方法中, 同时这些参数会默认的成为该爬虫的属性.
+这些参数会被传递到当前爬虫的 Spider类中的`__init__`方法中, 同时这些参数会默认的成为该爬虫的属性。
 
 在本例中, 你可以通过`self.tag` 来使用通过tag参数提供的值.同时利用这个特性来构建你的URL,让爬虫去爬取你想要的数据.:: 
 
@@ -273,7 +271,7 @@ Scrapy 追踪链接的机制：当你在一个回调方法中发起一个 Reques
         if next_page is not None:
             yield response.follow(next_page, self.parse)
 
-如果你将tag=humor这个参数传递给了这个爬虫, 那么该爬虫只会获取与humor这个标签相关的url， 比如说: `http://quotes.toscrape.com/tag/humor`.
+如果你将tag=humor这个参数传递给了这个爬虫, 那么该爬虫只会获取与humor这个标签相关的url， 比如说: `http://quotes.toscrape.com/tag/humor`。
 
 获取更多关于爬虫参数的信息 link_
 
@@ -284,9 +282,9 @@ Scrapy 追踪链接的机制：当你在一个回调方法中发起一个 Reques
 ==========
 
 对于Scrapy来说,这只是一个很基础的教程, 有很多其他的特性在本节并没有提到.你可以在 `Scrapy at a glance`_ 这一章节查看[What else?]()
-来获取更多有关Scrapy的重要信息.
+来获取更多有关Scrapy的重要信息。
 
-你可以通过 `Basic concepts`_ 这一章节继续学习更多有关于命令行工具, spiders, 选择器(用来提取数据),和对提取的数据进行规范化等一系列在本章没有涉及到的内容.如果你更迫不及待的想去试一下案例项目, 请查看 Examples_.
+你可以通过 `Basic concepts`_ 这一章节继续学习更多有关于命令行工具, spiders, 选择器(用来提取数据),和对提取的数据进行规范化等一系列在本章没有涉及到的内容.如果你更迫不及待的想去试一下案例项目, 请查看 Examples_。
 
 .. _`Basic concepts`: http://www.baidu.com
 .. _`Scrapy at a glance`: http://www.baidu.com

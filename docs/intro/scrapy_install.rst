@@ -1,4 +1,4 @@
-.. docs-intro-scrapy-install
+.. _docs-intro-scrapy-install:
 
 =========
 安装指南
@@ -15,12 +15,12 @@ Scrapy运行在Cpython解释器（默认python实现)和PyPy解释器(从PyPy5.9
     > conda install -c conda-forge scrapy
 
 
-同样的，如果你熟悉Python包安装方式，你可以通过以下命令从PyPI安装Scrapy和它的依赖包. ::
+同样的，如果你熟悉Python包安装方式，你可以通过以下命令从PyPI安装Scrapy和它的依赖包。 ::
 
     > pip install Scrapy
 
 
-注意，对于某些Scrapy依赖项的编译问题的解决方法，有时候可能需要根据你的操作系统来决定，因此请务必查看 平台特定的安装说明`install guide`_ 。
+注意，对于某些Scrapy依赖项的编译问题的解决方法，有时候可能需要根据你的操作系统来决定，因此请务必查看 平台特定的安装说明 `install guide`_ 。
 
 我们强烈建议你将Scrapy安装在专用的虚拟环境 virtualenv_link_ 中，以免与你的系统包发生冲突。
 
@@ -173,7 +173,7 @@ Mac OS X
 
 (可选) 在一个独立的环境中安装Python.这是解决上述OSX问题的一种变通方法，但它是管理依赖关系的总体良好实践，并且可以作为第一个方法的补充。
 
-virtualenv是一个在python中创建虚拟环境的工具。我们建议你可以阅读类似的教程 `virtualenv_guide`_ 来进行学习.
+virtualenv是一个在python中创建虚拟环境的工具。我们建议你可以阅读类似的教程 `virtualenv_guide`_ 来进行学习。
 
 在完成这些工作之后，你应该能够成功的安装Scrapy了: ::
     > pip install Scrapy

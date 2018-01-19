@@ -3,35 +3,29 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to my_project's documentation!
-======================================
-
-.. toctree::
-   :maxdepth: 3
-   :caption: Contents:
-
-
-Basic Test
+First step
 ==========
 
 .. toctree::
-   :caption: Basic Test
-   :name: master_test
+   :caption: First step
    :hidden:
 
-   
+   docs/intro/scrapy_glance 
+   docs/intro/scrapy_install   
    docs/intro/scrapy_tutorial
-   docs/intro/scrapy_install
    docs/intro/examples
 
-:doc: `docs/intro/scrapy_tutorial`
-     Scrapy Tutorial.
+:doc: `docs/intro/scrapy_glance`
+     Scrapy Glance
 
 :doc: `docs/intro/scrapy_install`
      Scrapy Install
 
-:doc: `docs/intro/examples`
+:doc: `docs/intro/scrapy_tutorial`
+     Scrapy Tutorial.
 
+:doc: `docs/intro/examples`
+     Scrapy Examples
 
 Indices and tables
 ==================
