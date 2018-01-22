@@ -35,10 +35,15 @@ BASIC CONCEPT
    :caption: Basic Concept
    :hidden:
    
-   docs/topics/spiders.rst
+   docs/topics/spiders
+   docs/topics/selectors
 
-:doc: `docs/topics/spiders
+:doc: `docs/topics/spiders`
      Spiders
+
+:doc: `docs/topics/selector`
+     Scrapy Selector
+
 
 Indices and tables
 ==================
