@@ -21,7 +21,7 @@ Spider类定义了如何爬取某个(或某些)网站。包括了爬取的动作
    或这些对象的可迭代容器。这些请求还将包含回调（可能是相同的），然后由 Scrapy 下载，然后由指定
    的回调处理它们的响应。
 
-3. 在回调函数中，您通常使用 :ref:`topics-selectors` 来解析页面内容（但您也可以使用BeautifulSoup，lxml或您喜欢的任何解析器），
+3. 在回调函数中，您通常使用 :ref:`docs-topics-selectors` 来解析页面内容（但您也可以使用BeautifulSoup，lxml或您喜欢的任何解析器），
    并使用解析的数据生成 Item。
 
 4. 最后，由spider返回的 item 通常会持久化存储到数据库中（在某些:ref:`Item Pipeline <topics-item-pipeline>`中进行存储操作）或者
