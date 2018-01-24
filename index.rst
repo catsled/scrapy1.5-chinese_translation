@@ -37,6 +37,7 @@ BASIC CONCEPT
    
    docs/topics/spiders
    docs/topics/selectors
+   docs/topics/scrapy_shell
 
 :doc: `docs/topics/spiders`
      Spiders
@@ -44,6 +45,8 @@ BASIC CONCEPT
 :doc: `docs/topics/selector`
      Scrapy Selector
 
+:doc: `docs/intro/scrapy_shell`
+     Scrapy Shell
 
 Indices and tables
 ==================
