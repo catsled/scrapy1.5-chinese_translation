@@ -1,4 +1,4 @@
-.. _topics-link-extractors:
+.. _docs-topics-link-extractors:
 
 ===============
 链接提取器
@@ -13,7 +13,7 @@ Scrapy内置有 ``scrapy.linkextractors.LinkExtractor`` 对象，不过你可以
 链接提取器通过一组规则在 :class:`~scrapy.spiders.CrawlSpider` 类（Scrapy内置）中使用，但即使你不从 :class:`~scrapy.spiders.CrawlSpider` 继承，你也可以在你的爬虫中使用它，因为它的目的非常简单：提取链接。
 
 
-.. _topics-link-extractors-ref:
+.. _docs-topics-link-extractors-ref:
 
 内置链接提取器参考
 ==================================
