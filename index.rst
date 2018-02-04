@@ -41,6 +41,8 @@ BASIC CONCEPT
    docs/topics/scrapy_shell
    docs/topics/item_pipeline
    docs/topics/feed_export
+   docs/topics/link_extractors
+   docs/topics/settings
 
 :doc: `docs/topics/command_line_tool`
      Command Line Tool 
@@ -57,9 +59,14 @@ BASIC CONCEPT
 :doc: `docs/topics/item_pipeline`
      Item Pipeline
 
-:doc: `docs/topics/scrapy_export`
-     Scrapy Export
+:doc: `docs/topics/feed_export`
+     Feed Export
 
+:doc: `docs/topics/link_extractors`
+     Link Extractors
+
+:doc: `docs/topics/settings`
+     Settings
 
 
 Indices and tables
