@@ -1,4 +1,4 @@
-.. _docs-intro-scrapy-shell:
+.. _docs-topics-scrapy-shell:
 
 ========================
  Scrapy shell
@@ -30,7 +30,7 @@ Scrapy 也支持 `bpython`_ ，如果 `IPython`_ 没有安装，Scrapy shell 会
 .. _`bpython`: https://www.bpython-interpreter.org/
 
 
-不管安装的是 `ipython` 、 `bpython`  还是标准的 `python` 控制台，都可以通过设置 setting 文件中的环境变量 `SCRAPY_PYTHON_SHELL` 的值自主选择，或者也可以在 `scrapy.cfg`_ 文件中定义这个变量： ::
+不管安装的是 ``ipython`` 、 ``bpython``  还是标准的 ``python`` 控制台，都可以通过设置 setting 文件中的环境变量 ``SCRAPY_PYTHON_SHELL`` 的值自主选择，或者也可以在 `scrapy.cfg`_ 文件中定义这个变量： ::
 
     [setting]
     shell = bpython
@@ -44,7 +44,7 @@ Scrapy 也支持 `bpython`_ ，如果 `IPython`_ 没有安装，Scrapy shell 会
 
     scrapy shell <url>
 
-`<url>` 是你要抓取数据的页面 URL。
+``<url>`` 是你要抓取数据的页面 URL。
 
 `Scrapy shell` 也可以处理本地文件，就是说可以使用 `shell` 处理你想抓取页面的本地拷贝文件。 `shell` 处理文件的语法如下： ::
 
@@ -58,9 +58,9 @@ Scrapy 也支持 `bpython`_ ，如果 `IPython`_ 没有安装，Scrapy shell 会
 
 .. note::
 
-    使用文件的相对路径容易理解，记得使用前缀 `./` （或者 `../`）。使用 `scrapy shell index.html` 会报错（这是设计好的，不是 bug ）。
+    使用文件的相对路径容易理解，记得使用前缀 ``./`` （或者 ``../``）。使用 ``scrapy shell index.html`` 会报错（这是设计好的，不是 bug ）。
 
-    对于文件 URIs 来说， `shell` 更喜欢 HTTP URLs ， 按照语法，`index.html` 会被看成像 `example.com` 的这种 URL ， shell 会把 `index.html` 做为一个域名然后发出一个 DNS lookup 错误。 
+    对于文件 URIs 来说， `shell` 更喜欢 HTTP URLs ， 按照语法，``index.html`` 会被看成像 ``example.com`` 的这种 URL ， shell 会把 ``index.html`` 做为一个域名然后发出一个 DNS lookup 错误。 
 
     ::
     
@@ -70,35 +70,39 @@ Scrapy 也支持 `bpython`_ ，如果 `IPython`_ 没有安装，Scrapy shell 会
         twisted.internet.error.DNSLookupError: DNS lookup failed:
         address 'index.html' not found: [Error -5] No address associated with hostname.
         
-    当然，如果在当前文件夹中有 `index.html` 文件，`shell` 就会正常处理不会报错。
+    当然，如果在当前文件夹中有 ``index.html`` 文件，`shell` 就会正常处理不会报错。
 
 
 使用 Scrapy shell
 ========================
-Scrapy shell 是一个标准的 Python 控制台（或者你安装了 IPython 控制台 ），它提供了一些附加的有用函数。
+Scrapy shell 是一个标准的 Python 控制台（或者你安装了 `IPython`_ 控制台 ），它提供了一些附加的有用函数。
 
-如下：
+.. _`IPython`: https://ipython.org/
 
-- `shelp()` - 输出所有的对象和函数
-- `fetch(url[, redirect=True])` -使用提供的 URL 获取一个新的请求并相应更新所有相关对象。设置 `redirect=False` 拒绝获取 HTTP 3xx 状态码。
-- `fetch(request)` - 从提供的请求获取响应并相应的更新所有相关的对象。
-- `view(response)` - 在本地浏览器中打开获取的响应来查看数据。为了更好的体现从外部引入的链接（比如图片和 style 样式文件）会增加一个 `<base>`_ 标签到响应体。但是，同时你的电脑上会产生一个临时文件，Scrapy 不会自动删除它。
+快捷函数
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+- ``shelp()`` - 输出所有的对象和函数
+- ``fetch(url[, redirect=True])`` -使用提供的 URL 获取一个新的请求并相应更新所有相关对象。设置 ``redirect=False`` 拒绝获取 HTTP 3xx 状态码。
+- ``fetch(request)`` - 从提供的请求获取响应并相应的更新所有相关的对象。
+- ``view(response)`` - 在本地浏览器中打开获取的响应来查看数据。为了更好的体现从外部引入的链接（比如图片和 style 样式文件）会增加一个 `<base>`_ 标签到响应体。但是，同时你的电脑上会产生一个临时文件，Scrapy 不会自动删除它。
 
 .. _`<base>`: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
 
 
 Scrapy 对象
-========================
+^^^^^^^^^^^^^^^^^^^^^^^
+
 Scrapy shell 会自动从下载的页面中创建一些有用的对象，比如 Response 和 Selector （都是 HTML 和 XML 内容）。
 
 
 同样的对象还有这些：
 
-- crawler - 当前 Crawler 对象。
-- spider - 处理 URL 的爬虫，或者在没有处理当前 URL 的爬虫时它是一个 Spider 对象。
-- request - 获取最后页面的 Request 对象。可以用 replace() 方法修改这个请求，或者在 shell 中使用 fetch 获取一个新请求。
-- response - 包含最后获取的页面的 Response 对象。
-- setting - 当前 Scrapy 设置。
+- ``crawler`` - 当前 Crawler 对象。
+- ``spider`` - 处理 URL 的爬虫，或者在没有处理当前 URL 的爬虫时它是一个 Spider 对象。
+- ``request`` - 获取最后页面的 Request 对象。可以用 replace() 方法修改这个请求，或者在 shell 中使用 fetch 获取一个新请求。
+- ``response`` - 包含最后获取的页面的 Response 对象。
+- ``setting`` - 当前 Scrapy 设置。
 
 
 shell 会话示例
@@ -117,7 +121,7 @@ shell 会话示例
     scrapy shell 'https://scrapy.org' --nolog
 
 
-shell 请求URL（使用 shell 下载器），然后会输出所有的对象和快捷方法（你会发现下面的这些行都是以 [s] 开头的）。 ::
+shell 请求URL（使用 shell 下载器），然后会输出所有的对象和快捷方法（你会发现下面的这些行都是以 ``[s]`` 开头的）。 ::
 
     [s] Available Scrapy objects:
     [s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)
@@ -186,7 +190,7 @@ shell 请求URL（使用 shell 下载器），然后会输出所有的对象和�
 有时候你想查看正在被爬虫处理的响应，只需要检查一下是否是你要处理的响应。
 
 
-可以用 `scrapy.shell.inspect_response` 函数检查。
+可以用 ``scrapy.shell.inspect_response`` 函数检查响应。
 
 
 从爬虫中调用： ::

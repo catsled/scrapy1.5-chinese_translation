@@ -34,11 +34,16 @@ BASIC CONCEPT
 .. toctree::
    :caption: Basic Concept
    :hidden:
-   
+
+   docs/topics/command_line_tool   
    docs/topics/spiders
    docs/topics/selectors
    docs/topics/scrapy_shell
+   docs/topics/item_pipeline
    docs/topics/feed_export
+
+:doc: `docs/topics/command_line_tool`
+     Command Line Tool 
 
 :doc: `docs/topics/spiders`
      Spiders
@@ -49,8 +54,12 @@ BASIC CONCEPT
 :doc: `docs/topics/scrapy_shell`
      Scrapy Shell
 
+:doc: `docs/topics/item_pipeline`
+     Item Pipeline
+
 :doc: `docs/topics/scrapy_export`
      Scrapy Export
+
 
 
 Indices and tables
