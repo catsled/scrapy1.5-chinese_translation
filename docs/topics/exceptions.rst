@@ -1,4 +1,4 @@
-.. _topics-exceptions:
+.. _docs-topics-exceptions:
 
 ==========
 异常
@@ -7,7 +7,7 @@
 .. module:: scrapy.exceptions
    :synopsis: Scrapy exceptions
 
-.. _topics-exceptions-ref:
+.. _docs-topics-exceptions-ref:
 
 内置异常参考手册
 =============================
