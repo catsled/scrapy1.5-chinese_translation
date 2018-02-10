@@ -10,7 +10,7 @@ feed导出
 
 Scrapy自带了feed导出，并且支持多种序列化格式以及存储后端来生成已抓取项目的feed。
 
-.. _topics-feed-format:
+.. _docs-topics-feed-format:
 
 序列化格式
 ===========
@@ -24,7 +24,7 @@ Scrapy自带了feed导出，并且支持多种序列化格式以及存储后端�
 
 你也可以通过 :setting:`FEED_EXPORTERS` 设置扩展支持的属性。
 
-.. _topics-feed-format-json:
+.. _docs-topics-feed-format-json:
 
 JSON
 ----
@@ -33,7 +33,7 @@ JSON
  * 使用的 Exporter: :class:`~scrapy.exporters.JsonItemExporter`
  * 数据量大的情况下使用 JSON，请参见 :ref:`this warning <json-with-large-data>`
 
-.. _topics-feed-format-jsonlines:
+.. _docs-topics-feed-format-jsonlines:
 
 JSON lines
 ----------
@@ -41,7 +41,7 @@ JSON lines
  * :setting:`FEED_FORMAT`: ``jsonlines``
  * 使用的 Exporter: :class:`~scrapy.exporters.JsonLinesItemExporter`
 
-.. _topics-feed-format-csv:
+.. _docs-topics-feed-format-csv:
 
 CSV
 ---
@@ -50,7 +50,7 @@ CSV
  * 使用的 Exporter: :class:`~scrapy.exporters.CsvItemExporter`
  * 要指定所要导出的列及其顺序，请使用 :setting:`FEED_EXPORT_FIELDS`。其他feed导出程序也可以使用此选项，但这对于CSV来说很重要，因为与许多其他导出格式不同，CSV使用固定标题。
 
-.. _topics-feed-format-xml:
+.. _docs-topics-feed-format-xml:
 
 XML
 ---
@@ -58,7 +58,7 @@ XML
  * :setting:`FEED_FORMAT`: ``xml``
  * 使用的 Exporter: :class:`~scrapy.exporters.XmlItemExporter`
 
-.. _topics-feed-format-pickle:
+.. _docs-topics-feed-format-pickle:
 
 Pickle
 ------
@@ -66,7 +66,7 @@ Pickle
  * :setting:`FEED_FORMAT`: ``pickle``
  * 使用的 Exporter: :class:`~scrapy.exporters.PickleItemExporter`
 
-.. _topics-feed-format-marshal:
+.. _docs-topics-feed-format-marshal:
 
 Marshal
 -------
@@ -75,7 +75,7 @@ Marshal
  * 使用的 Exporter: :class:`~scrapy.exporters.MarshalItemExporter`
 
 
-.. _topics-feed-storage:
+.. _docs-topics-feed-storage:
 
 存储
 =====
@@ -91,7 +91,7 @@ Marshal
 
 有些存储后端也许会因为外部库未安装而无法使用。例如，S3只有在 botocore_ 或者 boto_ 库安装的情况下才可用。
 
-.. _topics-feed-uri-params:
+.. _docs-topics-feed-uri-params:
 
 存储 URI 参数
 ==============
@@ -114,12 +114,12 @@ Marshal
    * ``s3://mybucket/scraping/feeds/%(name)s/%(time)s.json``
 
 
-.. _topics-feed-storage-backends:
+.. _docs-topics-feed-storage-backends:
 
 存储后端
 =========
 
-.. _topics-feed-storage-fs:
+.. _docs-topics-feed-storage-fs:
 
 本地文件系统
 ----------------
@@ -143,7 +143,7 @@ FTP
  * URI 样例: ``ftp://user:pass@ftp.example.com/path/to/export.csv``
  * 需要的外部依赖库: none
 
-.. _topics-feed-storage-s3:
+.. _docs-topics-feed-storage-s3:
 
 S3
 --
@@ -163,7 +163,7 @@ S3
  * :setting:`AWS_ACCESS_KEY_ID`
  * :setting:`AWS_SECRET_ACCESS_KEY`
 
-.. _topics-feed-storage-stdout:
+.. _docs-topics-feed-storage-stdout:
 
 标准输出
 ---------
