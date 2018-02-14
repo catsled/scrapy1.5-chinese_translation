@@ -1,0 +1,325 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>链接提取器 &mdash; my_project 0.15 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="my_project 0.15 documentation" href="../../index.html"/>
+        <link rel="next" title="配置(Settings)" href="settings.html"/>
+        <link rel="prev" title="feed导出" href="feed_exports.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> my_project
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.15
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">First step</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/scrapy_glance.html">Scrapy初见</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/scrapy_install.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/scrapy_tutorial.html">Scrapy 教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/examples.html">Examples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Basic Concept</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="command_line_tool.html">命令行工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spiders.html">Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">选择器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrapy_shell.html">Scrapy shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="item_pipeline.html">Item Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feed_exports.html">feed导出</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">链接提取器</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-scrapy.linkextractors">内置链接提取器参考</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-scrapy.linkextractors.lxmlhtml">LxmlLinkExtractor</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">配置(Settings)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">my_project</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>链接提取器</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/docs/topics/link_extractors.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="docs-topics-link-extractors">
+<span id="id1"></span><h1>链接提取器<a class="headerlink" href="#docs-topics-link-extractors" title="Permalink to this headline">¶</a></h1>
+<p>链接提取器的设计目的是通过 <code class="xref py py-class docutils literal notranslate"><span class="pre">scrapy.http.Response</span></code> 对象从网页中提取链接，以供后续使用。</p>
+<p>Scrapy内置有 <code class="docutils literal notranslate"><span class="pre">scrapy.linkextractors.LinkExtractor</span></code> 对象，不过你可以通过实现一个非常简单的接口来自定义满足你自己需求的链接提取器。</p>
+<p>每一个链接提取器唯一的公共方法是 <code class="docutils literal notranslate"><span class="pre">extract_links</span></code>，用于接收一个 <code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code> 对象并返回一个 <code class="xref py py-class docutils literal notranslate"><span class="pre">scrapy.link.Link</span></code> 对象的列表。链接提取器意在只实例化一次，而其 <code class="docutils literal notranslate"><span class="pre">extract_links</span></code> 方法会根据不同的响应被多次调用来提取链接。</p>
+<p>链接提取器通过一组规则在 <a class="reference internal" href="spiders.html#scrapy.spiders.CrawlSpider" title="scrapy.spiders.CrawlSpider"><code class="xref py py-class docutils literal notranslate"><span class="pre">CrawlSpider</span></code></a> 类（Scrapy内置）中使用，但即使你不从 <a class="reference internal" href="spiders.html#scrapy.spiders.CrawlSpider" title="scrapy.spiders.CrawlSpider"><code class="xref py py-class docutils literal notranslate"><span class="pre">CrawlSpider</span></code></a> 继承，你也可以在你的爬虫中使用它，因为它的目的非常简单：提取链接。</p>
+<div class="section" id="module-scrapy.linkextractors">
+<span id="id2"></span><span id="docs-topics-link-extractors-ref"></span><h2>内置链接提取器参考<a class="headerlink" href="#module-scrapy.linkextractors" title="Permalink to this headline">¶</a></h2>
+<p>在 <a class="reference internal" href="#module-scrapy.linkextractors" title="scrapy.linkextractors: Link extractors classes"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scrapy.linkextractors</span></code></a> 模块中提供了与Scrapy捆绑在一起的链接提取器类。</p>
+<p>默认的链接提取器是 <code class="docutils literal notranslate"><span class="pre">LinkExtractor</span></code>，与 <a class="reference internal" href="#scrapy.linkextractors.lxmlhtml.LxmlLinkExtractor" title="scrapy.linkextractors.lxmlhtml.LxmlLinkExtractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">LxmlLinkExtractor</span></code></a> 相同:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scrapy.linkextractors</span> <span class="k">import</span> <span class="n">LinkExtractor</span>
+</pre></div>
+</div>
+<p>在先前的Scrapy版本中，有其它的链接提取器类，但现在已经被弃用了。</p>
+<div class="section" id="module-scrapy.linkextractors.lxmlhtml">
+<span id="lxmllinkextractor"></span><h3>LxmlLinkExtractor<a class="headerlink" href="#module-scrapy.linkextractors.lxmlhtml" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="scrapy.linkextractors.lxmlhtml.LxmlLinkExtractor">
+<em class="property">class </em><code class="descclassname">scrapy.linkextractors.lxmlhtml.</code><code class="descname">LxmlLinkExtractor</code><span class="sig-paren">(</span><em>allow=()</em>, <em>deny=()</em>, <em>allow_domains=()</em>, <em>deny_domains=()</em>, <em>deny_extensions=None</em>, <em>restrict_xpaths=()</em>, <em>restrict_css=()</em>, <em>tags=('a'</em>, <em>'area')</em>, <em>attrs=('href'</em>, <em>)</em>, <em>canonicalize=False</em>, <em>unique=True</em>, <em>process_value=None</em>, <em>strip=True</em><span class="sig-paren">)</span><a class="headerlink" href="#scrapy.linkextractors.lxmlhtml.LxmlLinkExtractor" title="Permalink to this definition">¶</a></dt>
+<dd><p>LxmlLinkExtractor是一个值得推荐的链接提取器，具有方便的过滤器选项。它使用lxml强大的HTMLParser实现。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>allow</strong> (<em>一个正则表达式（或者正则表达式列表）</em>) – 一个正则表达式（或者正则表达式列表），这个（绝对）url必须匹配才能被提取。如果没有提供这个参数（或者为空），它将匹配所有链接。</li>
+<li><strong>deny</strong> (<em>一个正则表达式（或者正则表达式列表）</em>) – 一个正则表达式（或者正则表达式列表），这个（绝对）url必须匹配才能被排除。它的优先级别高于参数 <code class="docutils literal notranslate"><span class="pre">allow</span></code>。如果没有提供这个参数（或者为空），它将不会排除任何链接。</li>
+<li><strong>allow_domains</strong> (<em>str 或 list</em>) – 包含将被考虑用于提取链接的域的字符串的单个值列表</li>
+<li><strong>deny_domains</strong> (<em>str 或 list</em>) – 包含将不会被考虑用于提取链接的域的字符串的单个值或列表</li>
+<li><strong>deny_extensions</strong> (<em>list</em>) – 包含当提取链接时应该被忽略的插件的字符串的单个值或列表。如果没有提供这个参数，则默认为 <a class="reference external" href="https://github.com/scrapy/scrapy/blob/master/scrapy/linkextractors/__init__.py">scrapy.linkextractors</a> package 中定义的 <code class="docutils literal notranslate"><span class="pre">IGNORED_EXTENSIONS</span></code> 列表。</li>
+<li><strong>restrict_xpaths</strong> (<em>str 或 list</em>) – 是一个XPath（或XPath的列表），它定义了响应中应从中提取链接的区域。如果提供了这个参数，只有由那些XPath选中的文本将会被扫描链接。请看以下的例子。</li>
+<li><strong>restrict_css</strong> (<em>str 或 list</em>) – 是一个CSS选择器，它定义了相应中应从中提取链接的区域。具有与 <code class="docutils literal notranslate"><span class="pre">restrict_xpaths</span></code> 相同的功能。</li>
+<li><strong>tags</strong> (<em>str 或 list</em>) – 提取链接时应考虑的单个标签或标签列表，默认为 <code class="docutils literal notranslate"><span class="pre">('a',</span> <span class="pre">'area')</span></code>。</li>
+<li><strong>attrs</strong> (<em>list</em>) – 查找提取链接时应考虑的单个属性或属性列表（仅适用于 <code class="docutils literal notranslate"><span class="pre">tags</span></code> 参数中指定的那些标签），默认为 <code class="docutils literal notranslate"><span class="pre">('href',)</span></code></li>
+<li><strong>canonicalize</strong> (<em>boolean</em>) – 规范每个提取的 url (使用 w3lib.url.canonicalize_url)。 默认为 <code class="docutils literal notranslate"><span class="pre">False</span></code>。请注意，canonicalize_url 用于重复检查；它可以改变服务器端可见的URL，因此对于使用规范化和原始URL的请求，响应可能会有所不同。如果你使用LinkExtractor来跟踪链接，那么保持默认的 <code class="docutils literal notranslate"><span class="pre">canonicalize=False</span></code> 可以使程序更加健壮。</li>
+<li><strong>unique</strong> (<em>boolean</em>) – 是否应该对提取的链接进行重复过滤。</li>
+<li><strong>process_value</strong> (<em>callable</em>) – <p>接收从标签提取的每个值和被扫描的属性的函数，并且可以修改该值并返回一个新的值，或返回 <code class="docutils literal notranslate"><span class="pre">None</span></code> 来忽略该链接。如果没有提供这个参数，<code class="docutils literal notranslate"><span class="pre">process_value</span></code> 默认为 <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">x</span></code></p>
+<p>例如，从这个代码中提取链接:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;javascript:goToPage(&#39;../other/page.html&#39;); return false&quot;</span><span class="p">&gt;</span>Link text<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>你可以在 <code class="docutils literal notranslate"><span class="pre">process_value</span></code> 中使用以下函数:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process_value</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;javascript:goToPage\(&#39;(.*?)&#39;&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><strong>strip</strong> (<em>boolean</em>) – 是否从提取的属性中去除空格。根据HTML5标准，前导和尾随空格必须从 <code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code>， <code class="docutils literal notranslate"><span class="pre">&lt;area&gt;</span></code> 和其它许多元素的 <code class="docutils literal notranslate"><span class="pre">href</span></code> 属性，<code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code>， <code class="docutils literal notranslate"><span class="pre">&lt;iframe&gt;</span></code> 元素的 <code class="docutils literal notranslate"><span class="pre">src</span></code> 等等的属性中去除。所以LinkExtractor默认去除空格字符。可通过设置 <code class="docutils literal notranslate"><span class="pre">strip=False</span></code> 来关闭它（例如，如果你从允许前/后空格的元素或属性中提取URL的时候）。</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="settings.html" class="btn btn-neutral float-right" title="配置(Settings)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="feed_exports.html" class="btn btn-neutral" title="feed导出" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, mas.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.15',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

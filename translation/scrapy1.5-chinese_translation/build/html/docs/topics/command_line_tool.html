@@ -1,0 +1,719 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>命令行工具 &mdash; my_project 0.15 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="my_project 0.15 documentation" href="../../index.html"/>
+        <link rel="next" title="Spiders" href="spiders.html"/>
+        <link rel="prev" title="Examples" href="../intro/examples.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> my_project
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.15
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">First step</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/scrapy_glance.html">Scrapy初见</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/scrapy_install.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/scrapy_tutorial.html">Scrapy 教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/examples.html">Examples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Basic Concept</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">命令行工具</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#settings">配置 settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scrapy">Scrapy项目的默认结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">使用Scrapy工具</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">创建项目</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">控制项目</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#docs-topics-commands-ref">可用的工具命令</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#startproject">startproject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#genspider">genspider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crawl">crawl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check">check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list">list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#edit">edit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fetch">fetch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#view">view</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shell">shell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parse">parse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#std:command-settings">settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#runspider">runspider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version">version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bench">bench</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">自定义项目命令</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#std:setting-COMMANDS_MODULE">命令模块</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-py">通过setup.py注册命令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spiders.html">Spiders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">选择器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrapy_shell.html">Scrapy shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="item_pipeline.html">Item Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feed_exports.html">feed导出</a></li>
+<li class="toctree-l1"><a class="reference internal" href="link_extractors.html">链接提取器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">配置(Settings)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">my_project</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>命令行工具</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/docs/topics/command_line_tool.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="docs-intro-scrapy-shell">
+<span id="id1"></span><h1>命令行工具<a class="headerlink" href="#docs-intro-scrapy-shell" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.10.</span></p>
+</div>
+<p>Scrapy是通过scrapy命令行工具来控制的，为了将它与子命令(我们称之为“命令”或“Scrapy命令”)区分开来，在这里我们称它为“Scrapy工具”。</p>
+<p>Scrapy工具提供了多个命令，为了不同的目的，每个命令都接受一系列不同的参数和选项。</p>
+<p>( <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">deploy</span></code> 命令已经在 1.0版本中删除，取而代之的是独立的 <code class="docutils literal notranslate"><span class="pre">scrapyd-deploy</span></code> ， 参见 <a href="#id9"><span class="problematic" id="id10">`deploy`_</span></a> 章节)</p>
+<div class="section" id="settings">
+<span id="docs-config-settings"></span><h2>配置 settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
+<p>Scrapy将在scrapy.cfg中查找配置参数，默认位置:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">/etc/scrapy.cfg</span></code> 或 <code class="docutils literal notranslate"><span class="pre">c:\scrapy\scrapy.cfg</span></code> (系统范围),</li>
+<li><code class="docutils literal notranslate"><span class="pre">~/.config/scrapy.cfg</span></code> ( <code class="docutils literal notranslate"><span class="pre">$XDG_CONFIG_HOME</span></code> ) 和 <code class="docutils literal notranslate"><span class="pre">~/.scrapy.cfg</span></code> ( <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> ) 全局 (用户范围) settings</li>
+<li><code class="docutils literal notranslate"><span class="pre">scrapy.cfg</span></code> 包含在Scrapy项目的根目录中 (看下部分).</li>
+</ol>
+<p>这些文件中的配置项将按优先级顺序合并成列表:用户定义的值比系统级的默认值优先级更高并且当配置项被定义时，项目范围内的配置将覆盖所有其他的值。</p>
+<p>Scrapy可以通过一些环境变量来进行设置，如下:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">SCRAPY_SETTINGS_MODULE</span></code> (see <a class="reference internal" href="settings.html#docs-topics-settings-module-envvar"><span class="std std-ref">指定settings</span></a>)</li>
+<li><code class="docutils literal notranslate"><span class="pre">SCRAPY_PROJECT</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">SCRAPY_PYTHON_SHELL</span></code> (see <a class="reference internal" href="scrapy_shell.html#docs-topics-scrapy-shell"><span class="std std-ref">Scrapy shell</span></a>)</li>
+</ul>
+</div>
+<div class="section" id="scrapy">
+<span id="docs-topics-project-structure"></span><h2>Scrapy项目的默认结构<a class="headerlink" href="#scrapy" title="Permalink to this headline">¶</a></h2>
+<p>在深入了解命令行工具和它的子命令之前，让我们先了解一下Scrapy项目的目录结构。</p>
+<p>尽管它是可以被修改的，但是所有的Scrapy项目都默认生成相同的文件结构，类似于这样</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scrapy</span><span class="o">.</span><span class="n">cfg</span>
+    <span class="n">myproject</span><span class="o">/</span>
+            <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">py</span>
+            <span class="n">middlewares</span><span class="o">.</span><span class="n">py</span>
+            <span class="n">pipelines</span><span class="o">.</span><span class="n">py</span>
+            <span class="n">settings</span><span class="o">.</span><span class="n">py</span>
+            <span class="n">spiders</span><span class="o">/</span>
+                    <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+                    <span class="n">spider1</span><span class="o">.</span><span class="n">py</span>
+                    <span class="n">spider2</span><span class="o">.</span><span class="n">py</span>
+                    <span class="o">...</span>
+</pre></div>
+</div>
+<p>在项目目录中，有一个众所周知存放 <code class="docutils literal notranslate"><span class="pre">scrapy.cfg</span></code> 文件的目录叫项目的根目录。 该文件包含定义项目配置的python模块名称</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">settings</span><span class="p">]</span>
+<span class="n">default</span> <span class="o">=</span> <span class="n">myproject</span><span class="o">.</span><span class="n">settings</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>使用Scrapy工具<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>你可以先运行一个没有参数的Scrapy工具，它会打印一些有用的帮助和可用的命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Scrapy</span> <span class="n">X</span><span class="o">.</span><span class="n">Y</span> <span class="o">-</span> <span class="n">no</span> <span class="n">active</span> <span class="n">project</span>
+
+<span class="n">Usage</span><span class="p">:</span>
+<span class="n">scrapy</span> <span class="o">&lt;</span><span class="n">command</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">args</span><span class="p">]</span>
+
+<span class="n">Available</span> <span class="n">commands</span><span class="p">:</span>
+        <span class="n">crawl</span>         <span class="n">Run</span> <span class="n">a</span> <span class="n">spider</span>
+        <span class="n">fetch</span>         <span class="n">Fetch</span> <span class="n">a</span> <span class="n">URL</span> <span class="n">using</span> <span class="n">the</span> <span class="n">Scrapy</span> <span class="n">downloader</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>第一行将打印当前活动的项目。在本例中，它是从项目外部运行的。如果从项目内部运行它会打印出下面的信息:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Scrapy</span> <span class="n">X</span><span class="o">.</span><span class="n">Y</span> <span class="o">-</span> <span class="n">project</span><span class="p">:</span> <span class="n">myproject</span>
+
+<span class="n">Usage</span><span class="p">:</span>
+        <span class="n">scrapy</span> <span class="o">&lt;</span><span class="n">command</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">args</span><span class="p">]</span>
+
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h3>创建项目<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>当使用 <code class="docutils literal notranslate"><span class="pre">scrapy</span></code> 工具时，第一件要做事情常常是创建一个Scrapy项目:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">startproject</span> <span class="n">myproject</span> <span class="p">[</span><span class="n">project_dir</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>这样就会在 <code class="docutils literal notranslate"><span class="pre">project_dir</span></code> 目录下创建一个Scrapy项目。 如果 <code class="docutils literal notranslate"><span class="pre">project_dir</span></code> 没有定义的话，<code class="docutils literal notranslate"><span class="pre">project_dir</span></code> 会默认和 <code class="docutils literal notranslate"><span class="pre">myproject</span></code> 相同。</p>
+<p>下一步，你需要先进入到项目目录中：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">project_dir</span>
+</pre></div>
+</div>
+<p>然后你就可以在这里使用 <code class="docutils literal notranslate"><span class="pre">scrapy</span></code> 命令来管理和控制你的项目了。</p>
+</div>
+<div class="section" id="id4">
+<h3>控制项目<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>在你的项目中使用 scrapy 工具来控制和管理它们</p>
+<p>例如，创建一个新爬虫:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="n">genspider</span> <span class="n">mydomain</span> <span class="n">mydomain</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<p>一些Scrapy命令（如 <a class="reference internal" href="#std:command-crawl"><code class="xref std std-command docutils literal notranslate"><span class="pre">crawl</span></code></a> ）必须在Scrapy项目内部运行。 参阅 <a class="reference internal" href="#docs-topics-commands-ref"><span class="std std-ref">commands reference</span></a> ，来获取详细信息。</p>
+<p>还要注意的是，有些命令在从项目内部运行时可能会产生些许不同。 例如，当获取一些与特定 <code class="docutils literal notranslate"><span class="pre">spider</span></code> 相关联的url时，fetch命令将会产生覆盖(spider-overridden)行为(例如: <code class="docutils literal notranslate"><span class="pre">use_agent</span></code> 属性将会覆盖 user-agent)，这样做的意图是为了使用 <code class="docutils literal notranslate"><span class="pre">fetch</span></code> 命令去检测spiders是如何下载页面的。</p>
+</div>
+</div>
+<div class="section" id="docs-topics-commands-ref">
+<span id="id5"></span><h2>可用的工具命令<a class="headerlink" href="#docs-topics-commands-ref" title="Permalink to this headline">¶</a></h2>
+<p>本节包含了一个可用的内置命令列表及其描述和一些使用案例。 记住，你可以通过运行下面这个命令获得更多关于每个命令的信息:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="o">&lt;</span><span class="n">command</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">h</span>
+</pre></div>
+</div>
+<p>你也可以使用这个命令获取全部可用的命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scrapy</span> <span class="o">-</span><span class="n">h</span>
+</pre></div>
+</div>
+<p>共有两类命令，一类只在Scrapy项目内有效（特定于项目的命令），另一类是不需要Scrapy项目也可工作的命令(全局命令)，尽管它们在项目内中运行时可能稍有不同(因为将使用项目中的设置)。</p>
+<p>全局命令:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#std:command-startproject"><code class="xref std std-command docutils literal notranslate"><span class="pre">startproject</span></code></a></li>
+<li><a class="reference internal" href="#std:command-genspider"><code class="xref std std-command docutils literal notranslate"><span class="pre">genspider</span></code></a></li>
+<li><a class="reference internal" href="#std:command-settings"><code class="xref std std-command docutils literal notranslate"><span class="pre">settings</span></code></a></li>
+<li><code class="xref std std-command docutils literal notranslate"><span class="pre">runspider</span></code></li>
+<li><a class="reference internal" href="#std:command-shell"><code class="xref std std-command docutils literal notranslate"><span class="pre">shell</span></code></a></li>
+<li><a class="reference internal" href="#std:command-fetch"><code class="xref std std-command docutils literal notranslate"><span class="pre">fetch</span></code></a></li>
+<li><a class="reference internal" href="#std:command-view"><code class="xref std std-command docutils literal notranslate"><span class="pre">view</span></code></a></li>
+<li><a class="reference internal" href="#std:command-version"><code class="xref std std-command docutils literal notranslate"><span class="pre">version</span></code></a></li>
+</ul>
+<p>仅项目命令:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#std:command-crawl"><code class="xref std std-command docutils literal notranslate"><span class="pre">crawl</span></code></a></li>
+<li><a class="reference internal" href="#std:command-check"><code class="xref std std-command docutils literal notranslate"><span class="pre">check</span></code></a></li>
+<li><a class="reference internal" href="#std:command-list"><code class="xref std std-command docutils literal notranslate"><span class="pre">list</span></code></a></li>
+<li><a class="reference internal" href="#std:command-edit"><code class="xref std std-command docutils literal notranslate"><span class="pre">edit</span></code></a></li>
+<li><a class="reference internal" href="#std:command-parse"><code class="xref std std-command docutils literal notranslate"><span class="pre">parse</span></code></a></li>
+<li><a class="reference internal" href="#std:command-bench"><code class="xref std std-command docutils literal notranslate"><span class="pre">bench</span></code></a></li>
+</ul>
+<div class="section" id="startproject">
+<span id="std:command-startproject"></span><h3>startproject<a class="headerlink" href="#startproject" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>语法: <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">startproject</span> <span class="pre">&lt;project_name&gt;</span> <span class="pre">[project_dir]</span></code></li>
+<li>是否需要项目: <em>no</em> `</li>
+</ul>
+<p>在 <code class="docutils literal notranslate"><span class="pre">project_dir</span></code> 目录下创建一个名为 <code class="docutils literal notranslate"><span class="pre">project_name</span></code> 的新项目。 如果没有指定 <code class="docutils literal notranslate"><span class="pre">project_dir</span></code> ，<code class="docutils literal notranslate"><span class="pre">project_dir</span></code> 将与 <code class="docutils literal notranslate"><span class="pre">project_name</span></code> 相同。</p>
+<p>用法示例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scrapy startproject myproject
+</pre></div>
+</div>
+</div>
+<div class="section" id="genspider">
+<span id="std:command-genspider"></span><h3>genspider<a class="headerlink" href="#genspider" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>语法: <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">genspider</span> <span class="pre">[-t</span> <span class="pre">template]</span> <span class="pre">&lt;name&gt;</span> <span class="pre">&lt;domain&gt;</span></code></li>
+<li>是否需要项目: <em>no</em></li>
+</ul>
+<p>如果从项目内部调用，则在当前文件夹或当前项目的 <code class="docutils literal notranslate"><span class="pre">spiders</span></code> 文件夹中创建一个新的spider。<code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> 参数设置为爬虫的 <code class="docutils literal notranslate"><span class="pre">name</span></code>, 而 <code class="docutils literal notranslate"><span class="pre">&lt;domain&gt;</span></code> 用于生成spider的 <code class="docutils literal notranslate"><span class="pre">allowed_domains</span></code> 和 <code class="docutils literal notranslate"><span class="pre">start_urls</span></code> 属性。</p>
+<p>用法示例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scrapy genspider -l
+Available templates:
+  basic
+  crawl
+  csvfeed
+  xmlfeed
+
+$ scrapy genspider example example.com
+Created spider &#39;example&#39; using template &#39;basic&#39;
+
+$ scrapy genspider -t crawl scrapyorg scrapy.org
+Created spider &#39;scrapyorg&#39; using template &#39;crawl&#39;
+</pre></div>
+</div>
+<p>这仅仅是一个方便创建基于预定义模板爬虫的快捷命令，但这肯定不是创建爬虫的唯一方式。你也可以不使用这个命令，直接自己创建爬虫的源代码python文件。</p>
+</div>
+<div class="section" id="crawl">
+<span id="std:command-crawl"></span><h3>crawl<a class="headerlink" href="#crawl" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>语法: <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">crawl</span> <span class="pre">&lt;spider&gt;</span></code></li>
+<li>是否需要项目: <em>yes</em></li>
+</ul>
+<p>使用爬虫开始抓取。</p>
+<p>用法示例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scrapy crawl myspider
+[ ... myspider starts crawling ... ]
+</pre></div>
+</div>
+</div>
+<div class="section" id="check">
+<span id="std:command-check"></span><h3>check<a class="headerlink" href="#check" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>语法: <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">check</span> <span class="pre">[-l]</span> <span class="pre">&lt;spider&gt;</span></code></li>
+<li>是否需要项目: <em>yes</em></li>
+</ul>
+<p>运行检查.</p>
+<p>用法示例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scrapy check -l
+first_spider
+ * parse
+ * parse_item
+second_spider
+ * parse
+ * parse_item
+
+$ scrapy check
+[FAILED] first_spider:parse_item
+&gt;&gt;&gt; &#39;RetailPricex&#39; field is missing
+
+[FAILED] first_spider:parse
+&gt;&gt;&gt; Returned 92 requests, expected 0..4
+</pre></div>
+</div>
+</div>
+<div class="section" id="list">
+<span id="std:command-list"></span><h3>list<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>语法: <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">list</span></code></li>
+<li>是否需要项目: <code class="docutils literal notranslate"><span class="pre">yes</span></code></li>
+</ul>
+<p>列出当前项目中所有可用的爬虫。输出的每一行就是可用爬虫的name。</p>
+<p>用法示例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scrapy list
+spider1
+spider2
+</pre></div>
+</div>
+</div>
+<div class="section" id="edit">
+<span id="std:command-edit"></span><h3>edit<a class="headerlink" href="#edit" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>语法: <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">edit</span> <span class="pre">&lt;spider&gt;</span></code></li>
+<li>是否需要项目: <code class="docutils literal notranslate"><span class="pre">yes</span></code></li>
+</ul>
+<p>使用EDITOR环境变量中设定的编辑器来编辑指定的爬虫，或是使用Editor设置的编辑器。</p>
+<p>这个命令是为常见情况所提供的便利的快捷方式，开发人员当然也可以自由选择任何工具或IDE来编写和调试爬虫。</p>
+<p>用法示例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scrapy edit spider1
+</pre></div>
+</div>
+</div>
+<div class="section" id="fetch">
+<span id="std:command-fetch"></span><h3>fetch<a class="headerlink" href="#fetch" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>语法: <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">fetch</span> <span class="pre">&lt;url&gt;</span></code></li>
+<li>是否需要项目: <em>no</em></li>
+</ul>
+<p>使用Scrapy下载器下载指定的URL，并将内容写入标准输出中。</p>
+<p>这个命令有趣的地方在于，爬虫怎样下载，就会怎样获取这个页面。 例如，如果爬虫有一个会覆盖用户代理的USER_AGENT属性，那么这个命令也会使用这个属性。</p>
+<p>因此，这个命令可以用来“查看”你的爬虫如何获取某个页面</p>
+<p>如果在一个项目之外使用，就不需要使用特定的Scrapy内容，它只会使用默认的Scrapy下载器设置。</p>
+<p>支持选项:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">--spider=SPIDER</span></code>: 通过爬虫自动检测和强制使用特定的爬虫；</li>
+<li><code class="docutils literal notranslate"><span class="pre">--headers</span></code>: 打印响应的HTTP头，而不是响应的正文；</li>
+<li><code class="docutils literal notranslate"><span class="pre">--no-redirect</span></code>: 不追踪 HTTP 3xx的重定向(默认是追踪)；</li>
+</ul>
+<p>用法示例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scrapy fetch --nolog http://www.example.com/some/page.html
+[ ... html content here ... ]
+
+$ scrapy fetch --nolog --headers http://www.example.com/
+{&#39;Accept-Ranges&#39;: [&#39;bytes&#39;],
+&#39;Age&#39;: [&#39;1263   &#39;],
+&#39;Connection&#39;: [&#39;close     &#39;],
+&#39;Content-Length&#39;: [&#39;596&#39;],
+&#39;Content-Type&#39;: [&#39;text/html; charset=UTF-8&#39;],
+&#39;Date&#39;: [&#39;Wed, 18 Aug 2010 23:59:46 GMT&#39;],
+&#39;Etag&#39;: [&#39;&quot;573c1-254-48c9c87349680&quot;&#39;],
+&#39;Last-Modified&#39;: [&#39;Fri, 30 Jul 2010 15:30:18 GMT&#39;],
+&#39;Server&#39;: [&#39;Apache/2.2.3 (CentOS)&#39;]}
+</pre></div>
+</div>
+</div>
+<div class="section" id="view">
+<span id="std:command-view"></span><h3>view<a class="headerlink" href="#view" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>语法: <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">view</span> <span class="pre">&lt;url&gt;</span></code></li>
+<li>是否需要项目: <em>no</em></li>
+</ul>
+<p>在浏览器中打开给定的URL，就像你的Scrapy“看到”一样。 有时，爬虫与普通用户的查看到的页面不同，因此这可以用来检查爬虫“看到”的内容，并确认它是你所期望的那样。</p>
+<p>支持选项:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">--spider=SPIDER</span></code>: 通过爬虫自动检测和强制使用特定的爬虫；</li>
+<li><code class="docutils literal notranslate"><span class="pre">--no-redirect</span></code>: 不追踪 HTTP 3xx的重定向(默认是追踪)；</li>
+</ul>
+<p>用法示例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scrapy view http://www.example.com/some/page.html
+[ ... browser starts ... ]
+</pre></div>
+</div>
+</div>
+<div class="section" id="shell">
+<span id="std:command-shell"></span><h3>shell<a class="headerlink" href="#shell" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>语法: <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">shell</span> <span class="pre">[url]</span></code></li>
+<li>是否需要项目: <em>no</em></li>
+</ul>
+<p>启动Scrapy shell访问URL(如果给定的话)，如果没有给定URL，则为空。 同样也支持Unix风格的本地文件路径，<code class="docutils literal notranslate"><span class="pre">./</span></code> ， <code class="docutils literal notranslate"><span class="pre">../</span></code> 。 更多信息请参见 <a class="reference internal" href="scrapy_shell.html#docs-topics-scrapy-shell"><span class="std std-ref">Scrapy shell</span></a> 。</p>
+<p>支持选项:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">--spider=SPIDER</span></code>: 通过爬虫自动检测和强制使用特定的爬虫；</li>
+<li><code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">code</span></code>: 计算shell中的代码，打印结果并退出；</li>
+<li><code class="docutils literal notranslate"><span class="pre">--no-redirect</span></code>: 不追踪 HTTP 3xx的重定向(默认是追踪); 这只会影响在命令行上作为参数传递的URL; 一旦你在shell中，默认情况 fetch(url)就会追踪HTTP重定向。</li>
+</ul>
+<p>用法示例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scrapy shell http://www.example.com/some/page.html
+[ ... scrapy shell starts ... ]
+
+$ scrapy shell --nolog http://www.example.com/ -c &#39;(response.status, response.url)&#39;
+(200, &#39;http://www.example.com/&#39;)
+
+# shell follows HTTP redirects by default
+$ scrapy shell --nolog http://httpbin.org/redirect-to?url=http%3A%2F%2Fexample.com%2F -c &#39;(response.status, response.url)&#39;
+(200, &#39;http://example.com/&#39;)
+
+# you can disable this with --no-redirect
+# (only for the URL passed as command line argument)
+$ scrapy shell --no-redirect --nolog http://httpbin.org/redirect-to?url=http%3A%2F%2Fexample.com%2F -c &#39;(response.status, response.url)&#39;
+(302, &#39;http://httpbin.org/redirect-to?url=http%3A%2F%2Fexample.com%2F&#39;)
+</pre></div>
+</div>
+</div>
+<div class="section" id="parse">
+<span id="std:command-parse"></span><h3>parse<a class="headerlink" href="#parse" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>语法: <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">parse</span> <span class="pre">&lt;url&gt;</span> <span class="pre">[options]</span></code></li>
+<li>是否需要项目: <em>yes</em></li>
+</ul>
+<p>获取给定的url，通过 <code class="docutils literal notranslate"><span class="pre">--callback</span></code> 选项向spider中传入函数，或者默认的 <code class="docutils literal notranslate"><span class="pre">parse</span></code> 方法来处理响应 。</p>
+<p>支持选项:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">--spider=SPIDER</span></code>: 绕过spider自动检测并且强制使用特定的spider</li>
+<li><code class="docutils literal notranslate"><span class="pre">--a</span> <span class="pre">NAME=VALUE</span></code>: 设置爬虫参数(可以重复)</li>
+<li><code class="docutils literal notranslate"><span class="pre">--callback</span> <span class="pre">or</span> <span class="pre">-c</span></code>: 用于解析响应的爬虫方法</li>
+<li><code class="docutils literal notranslate"><span class="pre">--meta</span></code> or <code class="docutils literal notranslate"><span class="pre">-m</span></code>: 附加的request meta值将会被传递到回调函数的request中。该值必须是一个可用的json字符串。 如: –meta=’{“foo”: “bar”}’</li>
+<li><code class="docutils literal notranslate"><span class="pre">--pipelines</span></code>: 指定pipeline</li>
+<li><code class="docutils literal notranslate"><span class="pre">--rules</span></code> or <code class="docutils literal notranslate"><span class="pre">-r</span></code>: 使用 <a class="reference internal" href="spiders.html#scrapy.spiders.CrawlSpider" title="scrapy.spiders.CrawlSpider"><code class="xref py py-class docutils literal notranslate"><span class="pre">CrawlSpider</span></code></a> 规则来去发现用来解析响应的回调方法(即spider方法)。</li>
+<li><code class="docutils literal notranslate"><span class="pre">--noitems</span></code>: 不显示抓取到的item</li>
+<li><code class="docutils literal notranslate"><span class="pre">--nolinks</span></code>: 不显示提取的链接</li>
+<li><code class="docutils literal notranslate"><span class="pre">--nocolour</span></code>: 避免对输出进行着色</li>
+<li><code class="docutils literal notranslate"><span class="pre">--depth</span></code> or <code class="docutils literal notranslate"><span class="pre">-d</span></code>: 需要递归请求的深度级别(默认:1)</li>
+<li><code class="docutils literal notranslate"><span class="pre">--verbose</span></code> or <code class="docutils literal notranslate"><span class="pre">-v</span></code>: 显示每个深度级别的信息</li>
+</ul>
+<p>用法示例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scrapy parse http://www.example.com/ -c parse_item
+[ ... scrapy log lines crawling example.com spider ... ]
+
+&gt;&gt;&gt; STATUS DEPTH LEVEL 1 &lt;&lt;&lt;
+# Scraped Items  ------------------------------------------------------------
+[{&#39;name&#39;: u&#39;Example item&#39;,
+&#39;category&#39;: u&#39;Furniture&#39;,
+&#39;length&#39;: u&#39;12 cm&#39;}]
+
+# Requests  -----------------------------------------------------------------
+[]
+</pre></div>
+</div>
+</div>
+<div class="section" id="std:command-settings">
+<span id="id6"></span><h3>settings<a class="headerlink" href="#std:command-settings" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>语法: <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">settings</span> <span class="pre">[options]</span></code></li>
+<li>是否需要项目: <em>no</em></li>
+</ul>
+<p>从Scrapy setting获取值。</p>
+<p>如果在项目中使用，它将显示项目设置值，否则它将显示Scrapy的默认值。</p>
+<p>用法示例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scrapy settings --get BOT_NAME
+scrapybot
+$ scrapy settings --get DOWNLOAD_DELAY
+0
+</pre></div>
+</div>
+</div>
+<div class="section" id="runspider">
+<h3>runspider<a class="headerlink" href="#runspider" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>语法: <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">runspider</span> <span class="pre">&lt;spider_file.py&gt;</span></code></li>
+<li>是否需要项目: <em>no</em></li>
+</ul>
+<p>运行一个包含爬虫的Python文件，而不再需要创建一个项目。</p>
+<dl class="docutils">
+<dt>用法示例: ::</dt>
+<dd>$ scrapy runspider myspider.py
+[ … spider starts crawling … ]</dd>
+</dl>
+</div>
+<div class="section" id="version">
+<span id="std:command-version"></span><h3>version<a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>语法: <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">version</span> <span class="pre">[-v]</span></code></li>
+<li>是否需要项目: <em>no</em></li>
+</ul>
+<p>打印Scrapy版本。 如果scrapy与 <code class="docutils literal notranslate"><span class="pre">-v</span></code> 一起使用时，它还会打印Python、Twisted和Platform 的信息，这对bug报告非常有用。</p>
+</div>
+<div class="section" id="bench">
+<span id="std:command-bench"></span><h3>bench<a class="headerlink" href="#bench" title="Permalink to this headline">¶</a></h3>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.</span></p>
+</div>
+<ul class="simple">
+<li>语法: <code class="docutils literal notranslate"><span class="pre">scrapy</span> <span class="pre">bench</span></code></li>
+<li>是否需要项目: <em>no</em></li>
+</ul>
+<p>快速启动一个benchmark测试。 <span class="xref std std-ref">benchmarking</span></p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>自定义项目命令<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>你也可以使用 <a class="reference internal" href="#std:setting-COMMANDS_MODULE"><code class="xref std std-setting docutils literal notranslate"><span class="pre">COMMANDS_MODULE</span></code></a> 设置来添加你自定义的项目命令。
+有关如何实现您的命令的示例，请参阅 <a class="reference external" href="https://github.com/scrapy/scrapy/tree/master/scrapy/commands">scrapy/commands</a> 中的Scrapy命令。</p>
+<div class="section" id="std:setting-COMMANDS_MODULE">
+<span id="id8"></span><h3>命令模块<a class="headerlink" href="#std:setting-COMMANDS_MODULE" title="Permalink to this headline">¶</a></h3>
+<p>默认: <code class="docutils literal notranslate"><span class="pre">''</span></code> (空字符串)</p>
+<p>用于查找Scrapy自定义命令和用于为自己的Scrapy项目添加自定义的命令模块。</p>
+<dl class="docutils">
+<dt>用法示例： ::</dt>
+<dd>COMMANDS_MODULE = ‘mybot.commands’</dd>
+</dl>
+</div>
+<div class="section" id="setup-py">
+<h3>通过setup.py注册命令<a class="headerlink" href="#setup-py" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">这是一个经验性的特性,请小心使用。</p>
+</div>
+<p>通过向 <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> 库文件的接入点(entry point)添加一个 <code class="docutils literal notranslate"><span class="pre">scrapy.commands</span></code> 来引入一个外部库，。</p>
+<p>下面的示例是添加一个名为 my_command 的命令:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="k">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;scrapy-mymodule&#39;</span><span class="p">,</span>
+<span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;scrapy.commands&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">&#39;my_command=my_scrapy_module.commands:MyCommand&#39;</span><span class="p">,</span>
+        <span class="p">],</span>
+   <span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="spiders.html" class="btn btn-neutral float-right" title="Spiders" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../intro/examples.html" class="btn btn-neutral" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, mas.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.15',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>
