@@ -43,6 +43,7 @@ BASIC CONCEPT
    docs/topics/feed_exports
    docs/topics/link_extractors
    docs/topics/settings
+   docs/topics/exceptions
 
 :doc: `docs/topics/command_line_tool`
      Command Line Tool 
