@@ -9,7 +9,11 @@
  * `BeautifulSoup`_ : 在Python编程人员眼中，这是一个非常流行的网页数据提取库，它通过HTML代码来构建一个
    Python对象，并且可以合理的处理一些HTML代码中的错误标记，当然，它的缺点就是处理速度太慢。
 
+<<<<<<< HEAD
  * `lxml`_ : 这是一个XML解释库，它基于一个非常 pythonic 的接口 `ElementTree`_ (lxml 并不是Python标准库中的一部分。)
+=======
+ * `lxml`_ : 这是一个XML解释库，它基于一个非常 pythonic 的接口 `ElementTree`_  (lxml 并不是Python标准库中的一部分。)
+>>>>>>> origin/gh-pages
 
 Scrapy中提供了一套自己的数据提取机制。因为它通过 `Xpath`_ 或 `CSS`_ 表达式来对HTML文档中指定的部分进行
 选择提取，所以它被称作选择器(selecotrs)。
