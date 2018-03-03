@@ -38,6 +38,7 @@ BASIC CONCEPT
    docs/topics/command_line_tool   
    docs/topics/spiders
    docs/topics/selectors
+   docs/topics/item
    docs/topics/scrapy_shell
    docs/topics/item_pipeline
    docs/topics/feed_exports
@@ -53,6 +54,9 @@ BASIC CONCEPT
 
 :doc: `docs/topics/selector`
      Scrapy Selector
+
+:doc: `docs/topics/item`
+     Item
 
 :doc: `docs/topics/scrapy_shell`
      Scrapy Shell
