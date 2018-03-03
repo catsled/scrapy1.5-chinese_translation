@@ -54,7 +54,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'my_project'
+project = u'scrapy'
 copyright = u'2018, group_cn'
 author = u'group_cn'
 
@@ -171,7 +171,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'my_project', u'my_project Documentation',
-     author, 'my_project', 'One line description of project.',
+     author, 'scrapy', 'One line description of project.',
      'Miscellaneous'),
 ]
 

@@ -13,7 +13,7 @@ Scrapy 教程
 1. 创建一个新的Scrapy项目
 2. 编写一个spider类进行网站爬取和提取数据
 3. 使用命令行导出爬取到的数据
-4. 使用follow links将爬虫改为可递归的
+4. 使用follow links让爬虫可以递的归追踪链接
 5. 使用spider参数
 
 Scrapy完全使用python编写.如果你并不熟悉python编程语言，没关系，除了Scrapy之外你可以从很多地方了解到这门语言。
@@ -86,6 +86,311 @@ Scrapy完全使用python编写.如果你并不熟悉python编程语言，没关�
 * start_requests(): 该方法必须返回一个可迭代的Requests（你可以返回一个列表或者编写一个生成器函数），保证一连串的请求将会被这个方法成功的创建，随后，``Spider`` 将会从这里开始他的爬虫之旅.
 
 * parse(): 
+
+
+如何运行Spider
+--------------
+
+为了运行我们的spider，让我们来到对应项目的最外层目录并执行 ::
+
+    scrapy crawl quotes
+
+该指令运行名为 ``quotes`` 的spider，并且该spider将会向 ``quotes.toscrape.com`` 域名发送一些请求，
+你会得到与下面输出类似的结果 ::
+
+    ... (omitted for brevity)
+    2016-12-16 21:24:05 [scrapy.core.engine] INFO: Spider opened
+    2016-12-16 21:24:05 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+    2016-12-16 21:24:05 [scrapy.extensions.telnet] DEBUG: Telnet console listening on 127.0.0.1:6023
+    2016-12-16 21:24:05 [scrapy.core.engine] DEBUG: Crawled (404) <GET http://quotes.toscrape.com/robots.txt> (referer: None)
+    2016-12-16 21:24:05 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://quotes.toscrape.com/page/1/> (referer: None)
+    2016-12-16 21:24:05 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://quotes.toscrape.com/page/2/> (referer: None)
+    2016-12-16 21:24:05 [quotes] DEBUG: Saved file quotes-1.html
+    2016-12-16 21:24:05 [quotes] DEBUG: Saved file quotes-2.html
+    2016-12-16 21:24:05 [scrapy.core.engine] INFO: Closing spider (finished)
+    ...
+
+现在，在检查该目录。有两个新的文件分别被创建，一个是 *quotes-1.html* 另一个是 *quotes-2.html* ，看看你的 ``parse`` 方法
+你就知道怎么回事了。
+
+.. note:: 如果你想要知道为什么我们还没有解析HTML，别急，我们很快就会开始。
+
+
+这背后到底发生了什么?
+^^^^^^^^^^^^^^^^^^^^^
+
+Scrapy对从Spider中的 ``start_requests`` 方法返回的 :class:`scrapy.Request <scrapy.http.Request>` 对象进行编制，
+当收到每一个request对应的响应后，它初始化一个 :class:`~scrapy.http.Response` 对象，然后调用该request方法的回调函数
+(这种情况下，通常是 ``parse`` 方法) 同时将response作为参数传递给该函数。
+
+
+一种替代start_requests的简单方法
+-----------------------------------
+
+除了实现一个 :meth:`~scrapy.spiders.Spider.start_requests` 方法来生成 :class:`scrapy.Request<scrapy.http.Request>` 对象，
+你也可以定义一个包含了一串url的 :attr:`~scrapy.spiders.Spider.start_urls` 类属性。然后该列表会被默认的 :met:`~scrapy.spiders.Spider.start_requests` 方法
+用来为你的spider创建起始的请求 ::
+
+    import scrapy
+
+
+    class QuotesSpider(scrapy.Spider):
+        name = "quotes"
+        start_urls = [
+            'http://quotes.toscrape.com/page/1/',
+            'http://quotes.toscrape.com/page/2/',
+        ]
+
+        def parse(self, response):
+            page = response.url.split("/")[-2]
+            filename = 'quotes-%s.html' % page
+            with open(filename, 'wb') as f:
+                f.write(response.body)
+
+即使我们没有告诉Scrapy， :meth:`~scrapy.spiders.Spider.parse` 方法也会被默认作为回调函数来处理这些请求。
+因为， :meth:`~scrapy.spiders.Spider.parse` 是Scrapy的默认回调函数。
+
+
+提取数据
+---------
+
+学习如何提取数据的最好方法就是在 :ref:`Scrapy shell <docs-topics-shell>`. 中尝试使用选择器(selectors),
+运行 ::
+
+    scrapy shell 'http://quotes.toscrape.com/page/1/'
+
+.. note::
+
+    记着，在命令行中运行Scrapy shell时一定要前后引号的完整性，否则，url中包含的参数(如 ``&`` )将会失效。
+
+    在Windows下，使用双引号 ::
+
+        scrapy shell "http://quotes.toscrape.com/page/1/"
+
+你将会看到这样的输出 ::
+
+    [ ... Scrapy log here ... ]
+    2016-09-19 12:09:27 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://quotes.toscrape.com/page/1/> (referer: None)
+    [s] Available Scrapy objects:
+    [s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)
+    [s]   crawler    <scrapy.crawler.Crawler object at 0x7fa91d888c90>
+    [s]   item       {}
+    [s]   request    <GET http://quotes.toscrape.com/page/1/>
+    [s]   response   <200 http://quotes.toscrape.com/page/1/>
+    [s]   settings   <scrapy.settings.Settings object at 0x7fa91d888c10>
+    [s]   spider     <DefaultSpider 'default' at 0x7fa91c8af990>
+    [s] Useful shortcuts:
+    [s]   shelp()           Shell help (print this help)
+    [s]   fetch(req_or_url) Fetch request (or URL) and update local objects
+    [s]   view(response)    View response in a browser
+    >>>
+
+使用Scrapy shell，你可以尝试在response对象中使用 `CSS`_ 来选择元素 ::
+
+    >>> response.css('title')
+    [<Selector xpath='descendant-or-self::title' data='<title>Quotes to Scrape</title>'>]
+
+运行 ``response.css('title')`` 后，将会得到一个 :class:`~scrapy.selector.SelectorList` 类列表对象，
+它表现为一个包含了 :class:`~scrapy.selector.Selector` 对象的列表，该列表中的每一个对象都包裹了 XML/HTML 元素，
+并允许你进一步的提取数据。
+
+提取title中的文本，你可以这样做 ::
+
+    >>> response.css('title::text').extract()
+    ['Quotes to Scrape']
+
+有两点需要注意: 一个是我们向CSS查询中添加了 ``::text`` ，这意味着，我们想要直接拿到 ``<title>`` 元素中的
+text元素。如果我们指定 ``::text`` ，我们将会得到整个title元素，类似于这样 ::
+
+    >>> response.css('title').extract()
+    ['<title>Quotes to Scrape</title>']
+
+第二点是: ``.extract()`` 返回的结果是一个列表，因为我们处理的是一个 :class:`~scrapy.selector.SelectorList` 
+实例。在这里，当我们只想要获取第一个结果时，可以这样做 ::
+
+    >>> response.css('title::text').extract_first()
+    'Quotes to Scrape'
+
+另外，你也可以这样做 ::
+
+    >>> response.css('title::text')[0].extract()
+    'Quotes to Scrape'
+
+尽管如此，使用 ``.extract_first()`` 可以在找不到对应的元素时，避免一个 ``IndexError`` 错误，并且
+以 ``None`` 作为返回结果。
+
+这里有一个教训: 对于大部分爬虫代码，你都想要它可以在找不到对应元素的错误中恢复，所以，即使在爬取中有一些错误，
+你至少可以得到一些数据 (哈哈哈)。
+
+除了使用 :meth:`~scrapy.selector.Selector.extract` 方法和 :meth:`~scrapy.selector.SelectorList.extract_first` 
+方法，你也可以使用 :meth:`~scrapy.selector.Selector.re` 方法来通过正则表达式提取数据( `regular expressions`_ ) ::
+
+    >>> response.css('title::text').re(r'Quotes.*')
+    ['Quotes to Scrape']
+    >>> response.css('title::text').re(r'Q\w+')
+    ['Quotes']
+    >>> response.css('title::text').re(r'(\w+) to (\w+)')
+    ['Quotes', 'Scrape']
+
+为了找到合适的CSS选择器，你可以在你的网页浏览器中打开相应的网站，然后 ``view(response)`` 。
+你可以使用浏览器的开发者工具或者是类似于Firebug这样的扩展(查看 :ref:`docs-topics-firebug` 和 :ref:`topics-firefox`)。
+
+`Selector Gadget`_ 也是一款很棒的工具，你可以快速的获取到你看到的元素，并得到它们的CSS选择器。
+
+.. _Selector Gadget: http://selectorgadget.com/
+.. _regular expressions: https://docs.python.org/3/library/re.html
+
+
+Xpath简介
+^^^^^^^^^^
+
+除了 `CSS`_ ，Scrapy选择器也支持使用 `Xpath`_ 表达式 ::
+
+    >>> response.xpath('//title')
+    [<Selector xpath='//title' data='<title>Quotes to Scrape</title>'>]
+    >>> response.xpath('//title/text()').extract_first()
+    'Quotes to Scrape'
+
+Xpath表达式非常强大，并且也是构建Scrapy选择器的基础。事实上，CSS选择器在底层会被转换为XPath。
+如果你仔细阅读选择器对象在shell中的文本表示，你可以发现这一点。
+
+或许不像CSS选择器那么流行，但是XPath表达式更加强大，因为除了导航结构，他同时可以用来审视内容。
+使用XPath，你可以这样选择元素或内容: *选择包含 "Next Page" 的链接* 。 这些特性使Xpath非常适合
+爬取任务，我们建议你学习Xpath，即使你已经知道怎样构造CSS选择器，它可以使爬取更加简单。
+
+在这里我们不过多的涉及Xpath，但是你可以阅读 :ref:`using Xpath with Scrapy Selectors hrer <docs-topics-selectors>` .
+要学习更多的Xpath，我们推荐 `this tutorial to learn XPath through examples <http://zvon.org/comp/r/tut-XPath_1.html>`_ ,
+还有 `this tutorial to learn "how to think in XPath" <http://plasmasturm.org/log/xpath1.01/>`_ 。
+
+.. _XPath: https://www.w3.org/TR/xpath
+.. _CSS: https://www.w3.org/TR/selectors
+
+
+提取引言和作者
+^^^^^^^^^^^^^^
+
+现在你已经了解了一些选择和提取的只是，让我们通过编写提取引言和作者的代码来完成我们的爬虫。
+
+在 http://quotes.toscrape.com 中每一句引言都通过HTML元素呈现，就像这样 ::
+
+.. code-block:: html
+
+    <div class="quote">
+        <span class="text">“The world as we have created it is a process of our
+        thinking. It cannot be changed without changing our thinking.”</span>
+        <span>
+            by <small class="author">Albert Einstein</small>
+            <a href="/author/Albert-Einstein">(about)</a>
+        </span>
+
+        <div class="tags">
+            Tags:
+            <a class="tag" href="/tag/change/page/1/">change</a>
+            <a class="tag" href="/tag/deep-thoughts/page/1/">deep-thoughts</a>
+            <a class="tag" href="/tag/thinking/page/1/">thinking</a>
+            <a class="tag" href="/tag/world/page/1/">world</a>
+        </div>
+    </div>
+
+
+让我们打开scrapy shell并带着愉悦的心情来看看如何提取我们想要的数据 ::
+
+    $ scrapy shell 'http://quotes.toscrape.com'
+
+获取一个包含了quote HTML元素的选择器列表 ::
+
+    >>> response.css("div.quote")
+
+通过上面查询获得的每一个选择器都允许我们在它的子元素之上继续查询。让我们将第一个选择器赋值给一个变量，
+然后，我么就可以直接在特定的引言上运行我们的CSS选择器了 ::
+
+    >>> quote = response.css("div.quote")[0]
+
+现在让我们提取 ``title``, ``author`` 还有引言上的其他标签，使用我们刚刚创建的 ``quote`` 对象 ::
+
+    >>> title = quote.css("span.text::text").extract_first()
+    >>> title
+    '“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”'
+    >>> author = quote.css("small.author::text").extract_first()
+    >>> author
+    'Albert Einstein'
+
+既然已经指出如何从一个选择器中提取数据，现在我们可以遍历所有的quotes元素，并把他们放入一个Python字典中 ::
+
+     >>> for quote in response.css("div.quote"):
+    ...     text = quote.css("span.text::text").extract_first()
+    ...     author = quote.css("small.author::text").extract_first()
+    ...     tags = quote.css("div.tags a.tag::text").extract()
+    ...     print(dict(text=text, author=author, tags=tags))
+    {'tags': ['change', 'deep-thoughts', 'thinking', 'world'], 'author': 'Albert Einstein', 'text': '“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”'}
+    {'tags': ['abilities', 'choices'], 'author': 'J.K. Rowling', 'text': '“It is our choices, Harry, that show what we truly are, far more than our abilities.”'}
+        ... a few more of these, omitted for brevity
+    >>>
+
+
+在我们的spider中提取数据
+---------------------------
+
+回到我们的spider中。到目前为止，还没有特意的提取任何数据，只是将整个HTML页面存入了本地文件。让我们
+将上面的整个提取逻辑放入我们的spider中。
+
+一个Scrapy spider中一般会生成许多包含了从页面中提取到的数据的字典。为了实现该效果，我们在回调中使用
+Python中的 ``yield`` 关键字。 就像这样 ::
+
+    import scrapy
+
+
+    class QuotesSpider(scrapy.Spider):
+        name = "quotes"
+        start_urls = [
+            'http://quotes.toscrape.com/page/1/',
+            'http://quotes.toscrape.com/page/2/',
+        ]
+
+        def parse(self, response):
+            for quote in response.css('div.quote'):
+                yield {
+                    'text': quote.css('span.text::text').extract_first(),
+                    'author': quote.css('small.author::text').extract_first(),
+                    'tags': quote.css('div.tags a.tag::text').extract(),
+                }
+
+如果你运行这个spider，它将会以日志的形式输入提取到的数据 ::
+
+    2016-09-19 18:57:19 [scrapy.core.scraper] DEBUG: Scraped from <200 http://quotes.toscrape.com/page/1/>
+    {'tags': ['life', 'love'], 'author': 'André Gide', 'text': '“It is better to be hated for what you are than to be loved for what you are not.”'}
+    2016-09-19 18:57:19 [scrapy.core.scraper] DEBUG: Scraped from <200 http://quotes.toscrape.com/page/1/>
+    {'tags': ['edison', 'failure', 'inspirational', 'paraphrased'], 'author': 'Thomas A. Edison', 'text': "“I have not failed. I've just found 10,000 ways that won't work.”"}
+
+
+.. _storing-data
+
+存储爬取到的数据
+================
+
+保存数据最简单的方法是使用 :ref:`Feed exports <docs-topics-feed-exports>` ，运行命令 ::
+
+    scrapy crawl quotes -o quotes.json
+
+该命令将会生成一个名为 ``quotes.json`` 的文件，所有爬取到的数据都被序列化为 `JSON`_ 格式并保存在该文件中。
+
+由于历史原因，Scrapy选择在文件中追加内容而不覆盖之前内容。如果你在第二次运行该命令之前没有删除该文件，你将会
+得到一个损坏的JSON文件。
+
+你也可以使用其他文件格式，比如说 `JSON Lines`_ ::
+
+    scrapy crawl quotes -o quotes.jl
+
+由于`JSON Lines`_ 格式是 ``stream-like`` ，你可以简单的将新纪录添加到文件中。它不存在JSON格式二次写入
+的问题。同样的，由于每一条记录都是单独的一行，你可以处理大的文件而不用一次将所有的内容放入内存，你也可以使用
+像 `JQ`_ 这样的工具帮助你完成这件事情。
+
+在一些晓得项目中，这样已经足够了。尽管如此，如果你想更加细致的处理爬取到的数据，你可以编写一个 :ref:`Item Pipeline <docs-topics-item-pipeline>` 。
+在你创建项目时，一个空白的 Item Pipeline 已经在 ``tutorial/pipelines.py`` 中被默认创建了。所以如果你仅仅想保存爬取到的数据，你不用去实现一个
+item pipeline。
+
+.. _JSON Lines: http://jsonlines.org
+.. _JQ: https://stedolan.github.io/jq
 
 
 追踪链接
@@ -288,4 +593,4 @@ Scrapy 追踪链接的机制：当你在一个回调方法中发起一个 Reques
 
 .. _`Basic concepts`: http://www.baidu.com
 .. _`Scrapy at a glance`: http://www.baidu.com
-.. _Examples: :https://www.baidu.com
+.. _Examples: https://www.baidu.com
